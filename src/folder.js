@@ -1,4 +1,4 @@
-import { Element, loadHeader } from "./home.js";
+import { Element, loadHeader, loadHome } from "./home.js";
 import deleteIcon from './icons/delete.svg';
 
 class Folder extends Element{
@@ -29,7 +29,7 @@ class FolderArray extends Element{
 
 const folderArray = new FolderArray([]);
 export const pageCover = new Element('div.pageCover');
-const folderInput = new Element('div.folderPopup input');
+const folderInput = new Element('div.folderPopup>form>input');
 const folderPopup = new Element('div.folderPopup');
 const addButton = new Element('div.folderPopup>form>button:nth-child(4)');
 const cancelButton = new Element('div.folderPopup>form>button:last-child');
@@ -43,6 +43,8 @@ function deleteFolder(element) {
     folderArray.removeFolder(element);
 
     folderArray.removeChild(element);
+
+    loadHome();
 }
 
 function addFolder(){
@@ -51,6 +53,15 @@ function addFolder(){
 
     const folder = new Folder(folderInput.getElement().value);
     folder.createElement(folderArray.getElement(), folder.title);
+
+    const folderSpan = new Element('span');
+    folderSpan.createElement(folder.getElement());
+    folderSpan.setText(folder.title);
+
+    folderSpan.setEvent('click', (event) => {
+        loadFolder(event.target.textContent);
+    });
+
     folder.addIcon(deleteIcon);
 
     const deleteIconElement = new Element(`${folder.element}>img`);
@@ -59,10 +70,6 @@ function addFolder(){
     });
 
     folderArray.pushFolder(folder);
-
-    folder.setEvent('click', () => {
-        loadArray(folder.title);
-    });
 }
 
 function cancelFolder() {
@@ -71,8 +78,8 @@ function cancelFolder() {
     folderInput.getElement().value = "";
 }
 
-function loadArray(title) {
-    loadHeader(title);
+function loadFolder(folder) {
+    loadHeader(folder);
 }
 
 addButton.setEvent('click', addFolder);
