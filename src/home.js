@@ -7,6 +7,13 @@ export class Element{
         return document.querySelector(this.element);
     }
 
+    createElement(parent, id){
+        const newElement = document.createElement(this.element);
+        newElement.setAttribute('id', id);
+        newElement.textContent = id;
+        parent.append(newElement);
+    }
+
     setText(text){
         this.getElement().textContent = text;
     }
@@ -17,6 +24,10 @@ export class Element{
 
     setAttribute(attribute, value){
         this.getElement().setAttribute(attribute, value);
+    }
+
+    getValue(){
+        return this.getElement().value;
     }
 }
 
