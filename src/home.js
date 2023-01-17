@@ -14,6 +14,10 @@ export class Element{
     setEvent(event, fn){
         this.getElement().addEventListener(event, fn);
     }
+
+    setAttribute(attribute, value){
+        this.getElement().setAttribute(attribute, value);
+    }
 }
 
 export function loadHeader(headerText){

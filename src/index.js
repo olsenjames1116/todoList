@@ -2,7 +2,7 @@ import { Element, loadHome } from './home.js';
 import { loadToday } from './today.js';
 import { loadThisWeek } from './thisWeek.js';
 import { loadImportant } from './important.js';
-import { loadFolder } from './folder.js';
+import { loadFolder, createFolder } from './folder.js';
 import { loadTodo } from './todo.js';
 import './style.css';
 
@@ -21,7 +21,7 @@ const important = new Element('ul.nav>li:last-child');
 important.setEvent('click', loadImportant);
 
 const folder = new Element('div.folders>ul>li');
-folder.setEvent('click', loadFolder);
+folder.setEvent('click', createFolder);
 
 const todo = new Element('div.content>ul>li');
 todo.setEvent('click', loadTodo);
