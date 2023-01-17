@@ -9,9 +9,16 @@ export class Element{
 
     createElement(parent, id){
         const newElement = document.createElement(this.element);
-        newElement.setAttribute('id', id);
         newElement.textContent = id;
+
+        if(document.getElementById(id)){
+            id += Math.floor(Math.random()*1000000);
+        }
+
+        newElement.setAttribute('id', id);
+
         parent.append(newElement);
+        this.element += `#${id}`;
     }
 
     setText(text){
@@ -24,10 +31,6 @@ export class Element{
 
     setAttribute(attribute, value){
         this.getElement().setAttribute(attribute, value);
-    }
-
-    getValue(){
-        return this.getElement().value;
     }
 }
 
