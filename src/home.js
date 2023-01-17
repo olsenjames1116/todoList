@@ -10,6 +10,10 @@ export class Element{
     setText(text){
         this.getElement().textContent = text;
     }
+
+    setEvent(event, fn){
+        this.getElement().addEventListener(event, fn);
+    }
 }
 
 export function loadHeader(headerText){
