@@ -2,9 +2,10 @@ import { Element, loadHome } from './home.js';
 import { loadToday } from './today.js';
 import { loadThisWeek } from './thisWeek.js';
 import { loadImportant } from './important.js';
-import { loadFolder, createFolder } from './folder.js';
+import { createFolder } from './folder.js';
 import { loadTodo } from './todo.js';
 import './style.css';
+import deleteIcon from './icons/delete.svg';
 
 loadHome();
 

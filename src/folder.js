@@ -1,9 +1,5 @@
 import { Element, loadHeader } from "./home.js";
 
-const folderInput = new Element('div.folderPopup input');
-const addButton = new Element('div.folderPopup>form>button:nth-child(4)');
-const cancelButton = new Element('div.folderPopup>form>button:last-child');
-
 class Folder extends Element{
     constructor(title){
         super('li');
@@ -23,15 +19,22 @@ class FolderArray extends Element{
 }
 
 const folderArray = new FolderArray([]);
-
-export function loadFolder() {
-    loadHeader('Folder');
-}
-
+const folderInput = new Element('div.folderPopup input');
 const folderPopup = new Element('div.folderPopup');
+const addButton = new Element('div.folderPopup>form>button:nth-child(4)');
+const cancelButton = new Element('div.folderPopup>form>button:last-child');
 
 export function createFolder() {
     folderPopup.setAttribute('style', 'display: block;');
+}
+
+function addFolder(){
+    const folder = new Folder(folderInput.getElement().value);
+    folder.createElement(folderArray.getElement(), folder.title);
+    folderArray.pushItem(folder);
+    folder.setEvent('click', () => {
+        loadArray(folder.title);
+    });
 }
 
 function cancelFolder() {
@@ -39,10 +42,8 @@ function cancelFolder() {
     folderInput.getElement().value = "";
 }
 
-function addFolder(){
-    const folder = new Folder(folderInput.getElement().value);
-    folder.createElement(folderArray.getElement(), folder.title);
-    folderArray.pushItem(folder);
+export function loadArray(title) {
+    loadHeader(title);
 }
 
 addButton.setEvent('click', addFolder);
