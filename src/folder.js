@@ -1,4 +1,5 @@
 import { Element, loadHeader } from "./home.js";
+import deleteIcon from './icons/delete.svg';
 
 class Folder extends Element{
     constructor(title){
@@ -13,8 +14,16 @@ class FolderArray extends Element{
         this.array = array;
     }
 
-    pushItem(item){
+    pushFolder(item){
         this.array.push(item);
+    }
+
+    removeFolder(element){
+        const index = this.array.findIndex((folder) => {
+            return folder.element === `li#${element.id}`;
+        });
+        
+        this.array.splice(index, 1);
     }
 }
 
@@ -28,10 +37,24 @@ export function createFolder() {
     folderPopup.setAttribute('style', 'display: block;');
 }
 
+function deleteFolder(element) {
+    folderArray.removeFolder(element);
+
+    folderArray.removeChild(element);
+}
+
 function addFolder(){
     const folder = new Folder(folderInput.getElement().value);
     folder.createElement(folderArray.getElement(), folder.title);
-    folderArray.pushItem(folder);
+    folder.addIcon(deleteIcon);
+
+    const deleteIconElement = new Element(`${folder.element}>img`);
+    deleteIconElement.setEvent('click', () => {
+        deleteFolder(deleteIconElement.getElement().parentElement);
+    });
+
+    folderArray.pushFolder(folder);
+
     folder.setEvent('click', () => {
         loadArray(folder.title);
     });

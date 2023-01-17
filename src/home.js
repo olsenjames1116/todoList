@@ -21,6 +21,16 @@ export class Element{
         this.element += `#${id}`;
     }
 
+    addIcon(src){
+        const icon = new Image();
+        icon.src = src;
+        this.getElement().append(icon);
+    }
+
+    removeChild(child){
+        this.getElement().removeChild(child);
+    }
+
     setText(text){
         this.getElement().textContent = text;
     }

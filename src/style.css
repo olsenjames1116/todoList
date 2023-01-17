@@ -1,3 +1,9 @@
+div.folders img{
+    width: auto;
+    height: 20px;
+}
+
+
 div.folderPopup{
     display: none;
     position: fixed;
