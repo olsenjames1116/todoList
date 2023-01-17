@@ -28,6 +28,7 @@ class FolderArray extends Element{
 }
 
 const folderArray = new FolderArray([]);
+export const pageCover = new Element('div.pageCover');
 const folderInput = new Element('div.folderPopup input');
 const folderPopup = new Element('div.folderPopup');
 const addButton = new Element('div.folderPopup>form>button:nth-child(4)');
@@ -35,6 +36,7 @@ const cancelButton = new Element('div.folderPopup>form>button:last-child');
 
 export function createFolder() {
     folderPopup.setAttribute('style', 'display: block;');
+    pageCover.setAttribute('style', 'display: block;');
 }
 
 function deleteFolder(element) {
@@ -44,6 +46,9 @@ function deleteFolder(element) {
 }
 
 function addFolder(){
+    pageCover.setAttribute('style', 'display: none;');
+    folderPopup.setAttribute('style', 'display: none');
+
     const folder = new Folder(folderInput.getElement().value);
     folder.createElement(folderArray.getElement(), folder.title);
     folder.addIcon(deleteIcon);
@@ -61,11 +66,12 @@ function addFolder(){
 }
 
 function cancelFolder() {
+    pageCover.setAttribute('style', 'display: none;');
     folderPopup.setAttribute('style', 'display: none;');
     folderInput.getElement().value = "";
 }
 
-export function loadArray(title) {
+function loadArray(title) {
     loadHeader(title);
 }
 

@@ -11,6 +11,7 @@
         <div class="header">
             <h1>Task Manager</h1>
         </div>
+        
         <div class="sidebar">
             <ul class="nav">
                 <li>All Tasks</li>
@@ -24,12 +25,16 @@
                 </ul>
             </div>
         </div>
+
         <div class="content">
             <h2></h2>
             <ul>
                 <li>New Task</li>
             </ul>
         </div>
+
+        <div class="pageCover"></div>
+
         <div class="folderPopup">
             <form action="" method="set">
               <h3>New Folder</h3>
@@ -41,6 +46,41 @@
               <button type="button">Cancel</button>
             </form>
           </div>
+
+          <div class="taskPopup">
+            <form action="" method="set">
+              <h3>New Task</h3>
+          
+              <label for="title">Task Title:</label>
+              <input id="title" type="text" placeholder="Ex: Pay rent, Feed the dog, etc." name="title" required>
+
+              <label for="description">Description:</label>
+              <input id="description" type="text" placeholder="Ex: Dog gets a scoop of dry food and 2 vitamins" name="description">
+
+              <label for="dateTime">Deadline:</label>
+              <input type="datetime-local" id="dateTime" name="dateTime">
+
+              <div>
+                <input type="radio" id="none" name="priority" value="none" checked>
+                <label for="none">None</label>
+              </div><div>
+                <input type="radio" id="low" name="priority" value="low">
+                <label for="low">Low</label>
+              </div>
+              <div>
+                <input type="radio" id="medium" name="priority" value="medium">
+                <label for="medium">Medium</label>
+              </div>
+              <div>
+                <input type="radio" id="high" name="priority" value="high">
+                <label for="high">High</label>
+              </div>
+          
+              <button type="button">Add</button>
+              <button type="button">Cancel</button>
+            </form>
+          </div>
+
         <div class="footer">
             <p>Author Credit</p>
             <p>Sources</p>

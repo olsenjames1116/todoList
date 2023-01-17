@@ -3,7 +3,7 @@ import { loadToday } from './today.js';
 import { loadThisWeek } from './thisWeek.js';
 import { loadImportant } from './important.js';
 import { createFolder } from './folder.js';
-import { loadTodo } from './todo.js';
+import { createTask } from './task.js';
 import './style.css';
 import deleteIcon from './icons/delete.svg';
 
@@ -25,4 +25,4 @@ const folder = new Element('div.folders>ul>li');
 folder.setEvent('click', createFolder);
 
 const todo = new Element('div.content>ul>li');
-todo.setEvent('click', loadTodo);
+todo.setEvent('click', createTask);
