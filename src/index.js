@@ -4,6 +4,7 @@ import { loadThisWeek } from './thisWeek.js';
 import { loadImportant } from './important.js';
 import { loadFolder } from './folder.js';
 import { loadTodo } from './todo.js';
+import './style.css';
 
 loadHome();
 
