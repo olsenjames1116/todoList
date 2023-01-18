@@ -1,4 +1,6 @@
-import { Element, loadHeader, loadHome } from "./home.js";
+import { Element, loadHeader, loadHome } from './home.js';
+import { addTask, addTaskButton, cancelTaskButton, clearTaskInput, createTask, displayTasks } from './task.js';
+import { task } from './index.js';
 import deleteIcon from './icons/delete.svg';
 
 class Folder extends Element{
@@ -14,8 +16,8 @@ class FolderArray extends Element{
         this.array = array;
     }
 
-    pushFolder(item){
-        this.array.push(item);
+    pushFolder(folder){
+        this.array.push(folder);
     }
 
     removeFolder(element){
@@ -47,19 +49,22 @@ function deleteFolder(element) {
     loadHome();
 }
 
-function addFolder(){
+function clearInput() {
     pageCover.setAttribute('style', 'display: none;');
     folderPopup.setAttribute('style', 'display: none');
+    folderInput.getElement().value = "";
+}
 
+function addFolder(){
     const folder = new Folder(folderInput.getElement().value);
     folder.createElement(folderArray.getElement(), folder.title);
 
     const folderSpan = new Element('span');
-    folderSpan.createElement(folder.getElement());
+    folderSpan.createElement(folder.getElement(), folder.title);
     folderSpan.setText(folder.title);
 
     folderSpan.setEvent('click', (event) => {
-        loadFolder(event.target.textContent);
+        loadFolder(folder);
     });
 
     folder.addIcon(deleteIcon);
@@ -70,19 +75,18 @@ function addFolder(){
     });
 
     folderArray.pushFolder(folder);
-}
-
-function cancelFolder() {
-    pageCover.setAttribute('style', 'display: none;');
-    folderPopup.setAttribute('style', 'display: none;');
-    folderInput.getElement().value = "";
+    clearInput();
 }
 
 function loadFolder(folder) {
-    loadHeader(folder);
+    loadHeader(folder.title);
+    task.setEvent('click', () => {
+        createTask();
+        addTaskButton.setEvent('click', () => addTask(folder.element));
+        cancelTaskButton.setEvent('click', clearTaskInput);
+    }); 
+    displayTasks(folder.element);
 }
 
 addButton.setEvent('click', addFolder);
-
-cancelButton.setEvent('click', cancelFolder);
-
+cancelButton.setEvent('click', clearInput);
