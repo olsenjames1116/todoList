@@ -14,7 +14,7 @@ export class Element{
 
         if(id!==undefined){
             if(document.getElementById(id)){
-                id += Math.floor(Math.random()*1000000);
+                id += id += Math.floor(Math.random()*1000000);
             }
     
             newElement.setAttribute('id', id);

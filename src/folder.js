@@ -1,6 +1,4 @@
-import { Element, loadHeader, loadHome } from './home.js';
-import { addTask, addTaskButton, cancelTaskButton, clearTaskInput, createTask, displayTasks } from './task.js';
-import { task } from './index.js';
+import { Element, loadHeader, loadHome } from "./home.js";
 import deleteIcon from './icons/delete.svg';
 
 class Folder extends Element{
@@ -16,8 +14,8 @@ class FolderArray extends Element{
         this.array = array;
     }
 
-    pushFolder(folder){
-        this.array.push(folder);
+    pushFolder(item){
+        this.array.push(item);
     }
 
     removeFolder(element){
@@ -49,22 +47,18 @@ function deleteFolder(element) {
     loadHome();
 }
 
-function clearInput() {
+function addFolder(){
     pageCover.setAttribute('style', 'display: none;');
     folderPopup.setAttribute('style', 'display: none');
-    folderInput.getElement().value = "";
-}
 
-function addFolder(){
     const folder = new Folder(folderInput.getElement().value);
     folder.createElement(folderArray.getElement(), folder.title);
 
     const folderSpan = new Element('span');
-    folderSpan.createElement(folder.getElement(), folder.title);
+    folderSpan.createElement(folder.getElement());
     folderSpan.setText(folder.title);
 
     folderSpan.setEvent('click', (event) => {
-        console.log(event.target.parentElement.id);
         loadFolder(folder);
     });
 
@@ -76,28 +70,25 @@ function addFolder(){
     });
 
     folderArray.pushFolder(folder);
-    clearInput();
+}
+
+function cancelFolder() {
+    pageCover.setAttribute('style', 'display: none;');
+    folderPopup.setAttribute('style', 'display: none;');
+    folderInput.getElement().value = "";
 }
 
 function loadFolder(folder) {
-    loadHeader(folder);
-
-
-
-
-    // task.setEvent('click', () => {
-    //     createTask();
-    //     console.log(folder);
-        // addTaskButton.removeEventListener('click', addTask)
-        //                 .setEvent('click', () => {
-        //     console.log(folder);
-        //     addTask(folder);
-        // });
+    loadHeader(folder.title);
+    task.setEvent('click', () => {
+        createTask();
+        addTaskButton.setEvent('click', () => addTask(folder.element));
         cancelTaskButton.setEvent('click', clearTaskInput);
-    // }); 
-
+    }); 
     displayTasks(folder.element);
 }
 
 addButton.setEvent('click', addFolder);
-cancelButton.setEvent('click', clearInput);
+
+cancelButton.setEvent('click', cancelFolder);
+

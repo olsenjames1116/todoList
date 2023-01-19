@@ -21,8 +21,8 @@ thisWeek.setEvent('click', loadThisWeek);
 const important = new Element('ul.nav>li:last-child');
 important.setEvent('click', loadImportant);
 
-const folder = new Element('div.folders>ul>li:first-child');
+const folder = new Element('div.folders>ul>li');
 folder.setEvent('click', createFolder);
 
-export const task = new Element('div.content>ul>li:first-child');
-task.setEvent('click', createTask);
+const todo = new Element('div.content>ul>li');
+todo.setEvent('click', createTask);
