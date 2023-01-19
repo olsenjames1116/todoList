@@ -13,8 +13,9 @@ class Task extends Element {
     }
 }
 
-class TaskArray {
+class TaskArray extends Element {
     constructor(array){
+        super('div.content>ul');
         this.array = array;
     }
 
@@ -27,11 +28,22 @@ class TaskArray {
            return item.folder === folder;
         });
     }
+
+    removeTask(element) {
+        console.table(this.array);
+        const index = this.array.findIndex((task) => {
+            console.log(task.element);
+            console.log(element.id);
+            return task.element === `li#${element.id}`;
+        });
+        
+        this.array.splice(index, 1);
+        console.table(this.array);
+    }
 }
 
 export const addTaskButton = new Element('div.taskPopup>form>button:nth-last-child(2)');
 export const cancelTaskButton = new Element('div.taskPopup>form>button:last-child');
-const taskList = new Element('div.content>ul');
 const taskTitleInput = new Element('div.taskPopup>form>input#title');
 const taskDescriptionInput = new Element('div.taskPopup>form>textarea#description');
 const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
@@ -62,9 +74,15 @@ export function addTask() {
     displayTasks(task.folder);
 }
 
+function deleteTask(element) {
+    taskArray.removeTask(element);
+
+    taskArray.removeChild(element);
+}
+
 export function displayTasks(folder) {
     let subArray;
-    taskList.getElement().innerHTML = '';
+    taskArray.getElement().innerHTML = '';
 
     if(folder!=='all'){
         subArray = taskArray.subArray(folder);
@@ -73,23 +91,19 @@ export function displayTasks(folder) {
     }
 
     subArray.forEach((item) => {
-        const listElement = document.createElement('li');
+        const listElement = new Element('li');
+        listElement.createElement(taskArray.getElement(), item.title.split(' ').join(''));
+        item.element = `li#${listElement.getElement().id}`;
+        
         const textElement = document.createElement('span');
         textElement.textContent = item.title;
+        listElement.getElement().append(textElement);
+        listElement.addIcon(deleteIcon);
 
-        const deleteIconElement = new Image();
-        deleteIconElement.classList.add('deleteIcon');
-        deleteIconElement.src = deleteIcon;
-
-
-        // folder.addIcon(deleteIcon);
-
-        // const deleteIconElement = new Element(`>img`);
-        // deleteIconElement.setEvent('click', () => {
-        //     deleteFolder(deleteIconElement.getElement().parentElement);
-        // });
-        listElement.append(textElement, deleteIconElement);
-        taskList.getElement().append(listElement);
+        const deleteIconElement = new Element(`${listElement.element}>img`);
+        deleteIconElement.setEvent('click', () => {
+            deleteTask(deleteIconElement.getElement().parentElement);
+        });
     });
 
 }

@@ -13,6 +13,10 @@ export class Element{
         const newElement = document.createElement(this.element);
 
         if(id!==undefined){
+            if(document.getElementById(id)!==null){
+                id += Math.floor(Math.random() * 1000000);
+            }
+            
             newElement.setAttribute('id', id);
     
             this.element += `#${id}`;
