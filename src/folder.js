@@ -1,4 +1,6 @@
 import { Element, loadHeader, loadHome } from "./home.js";
+import { addTask, addTaskButton, cancelTaskButton, clearTaskInput, createTask, displayTasks } from './task.js';
+import { task } from './index.js';
 import deleteIcon from './icons/delete.svg';
 
 class Folder extends Element{
@@ -47,15 +49,18 @@ function deleteFolder(element) {
     loadHome();
 }
 
-function addFolder(){
+function clearInput() {
     pageCover.setAttribute('style', 'display: none;');
     folderPopup.setAttribute('style', 'display: none');
+    folderInput.getElement().value = "";
+}
 
+function addFolder(){
     const folder = new Folder(folderInput.getElement().value);
     folder.createElement(folderArray.getElement(), folder.title);
 
     const folderSpan = new Element('span');
-    folderSpan.createElement(folder.getElement());
+    folderSpan.createElement(folder.getElement(), folder.title);
     folderSpan.setText(folder.title);
 
     folderSpan.setEvent('click', (event) => {
@@ -70,13 +75,9 @@ function addFolder(){
     });
 
     folderArray.pushFolder(folder);
+    clearInput();
 }
 
-function cancelFolder() {
-    pageCover.setAttribute('style', 'display: none;');
-    folderPopup.setAttribute('style', 'display: none;');
-    folderInput.getElement().value = "";
-}
 
 function loadFolder(folder) {
     loadHeader(folder.title);
@@ -89,6 +90,5 @@ function loadFolder(folder) {
 }
 
 addButton.setEvent('click', addFolder);
-
-cancelButton.setEvent('click', cancelFolder);
+cancelButton.setEvent('click', clearInput);
 

@@ -24,5 +24,5 @@ important.setEvent('click', loadImportant);
 const folder = new Element('div.folders>ul>li');
 folder.setEvent('click', createFolder);
 
-const todo = new Element('div.content>ul>li');
-todo.setEvent('click', createTask);
+export const task = new Element('div.content>ul>li:first-child');
+task.setEvent('click', createTask);
