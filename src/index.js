@@ -3,11 +3,9 @@ import { loadToday } from './today.js';
 import { loadThisWeek } from './thisWeek.js';
 import { loadImportant } from './important.js';
 import { createFolder } from './folder.js';
-import { createNewTaskButton, createTask } from './task.js';
+import { createTask } from './task.js';
 import './style.css';
 import deleteIcon from './icons/delete.svg';
-
-createNewTaskButton('all');
 
 loadHome();
 

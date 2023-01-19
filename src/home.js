@@ -1,4 +1,4 @@
-import { loadTaskButton } from './task.js';
+// import { displayTasks } from "./task.js";
 
 export class Element{
     constructor(element){
@@ -13,10 +13,6 @@ export class Element{
         const newElement = document.createElement(this.element);
 
         if(id!==undefined){
-            if(document.getElementById(id)){
-                id += Math.floor(Math.random()*1000000);
-            }
-    
             newElement.setAttribute('id', id);
     
             this.element += `#${id}`;
@@ -58,5 +54,6 @@ export function loadHeader(headerText){
 
 export function loadHome(){
     loadHeader('All Tasks');
-    loadTaskButton('all');
+    // const taskArray = displayTasks('all');
+    // console.table(taskArray);
 }

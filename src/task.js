@@ -23,25 +23,10 @@ class TaskArray {
 
     subArray(folder){
         return this.array.filter((item) => {
-           item.folder === folder;
+            console.log(item.folder);
+            console.log(folder);
+           return item.folder === folder;
         });
-    }
-}
-
-class TaskButton extends Element {
-    constructor(id){
-        super('button');
-        this.id = id;
-    }
-}
-
-class TaskButtonArray {
-    constructor(array){
-        this.array = array;
-    }
-
-    pushTaskButton(taskButton){
-        this.array.push(taskButton);
     }
 }
 
@@ -53,30 +38,10 @@ const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
 const taskPopup = new Element('div.taskPopup');
 const taskPriorityInput = new Element('div.taskPopup>form>div>input[type="radio"]:checked');
 const taskArray = new TaskArray([]);
-export const taskButtonArray = new TaskButtonArray([]);
 
 export function createTask() {
     pageCover.setAttribute('style', 'display: block;');
     taskPopup.setAttribute('style', 'display: block;');
-}
-
-export function createNewTaskButton(folderId) {
-    const taskButton = new TaskButton(folderId);
-    taskButton.createElement();
-    taskButton.setText('New Task');
-    taskButton.setEvent('click', () => addTask(folderId));
-    taskButtonArray.pushTaskButton(taskButton);
-}
-
-export function loadTaskButton(folderId) {
-    const taskButton = taskButtonArray.array.find((taskButton) => {
-        return taskButton.id === folderId;
-    })
-    document.querySelector('div.content').insertBefore(taskButton, document.querySelector('div.content>h2'));
-}
-
-export function loadTodo() {
-    loadHeader('ToDo');
 }
 
 export function clearTaskInput(){
@@ -88,31 +53,22 @@ export function clearTaskInput(){
     document.querySelector('div.taskPopup>form>div>input#none').checked = true;
 }
 
-export function addTask(folder) {
-    const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, folder);
+export function addTask() {
+    const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
     
     taskArray.pushTask(task);
     clearTaskInput();
 
+    displayTasks(task.folder);
     console.table(taskArray.array);
-    // const folder = new Folder(folderInput.getElement().value);
-    // folder.createElement(folderArray.getElement(), folder.title);
-    // folder.addIcon(deleteIcon);
-
-    // const deleteIconElement = new Element(`${folder.element}>img`);
-    // deleteIconElement.setEvent('click', () => {
-    //     deleteFolder(deleteIconElement.getElement().parentElement);
-    // });
-
-    // folderArray.pushFolder(folder);
-
-    // folder.setEvent('click', () => {
-    //     loadArray(folder.title);
-    // });
 }
 
 export function displayTasks(folder) {
-    taskArray.subArray(folder);
+    if(folder!=='all'){
+        return taskArray.subArray(folder);
+    } else{
+        return taskArray.array;
+    }
 }
 
 addTaskButton.setEvent('click', addTask);

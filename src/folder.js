@@ -1,6 +1,5 @@
 import { Element, loadHeader, loadHome } from "./home.js";
-import { addTask, addTaskButton, cancelTaskButton, clearTaskInput, createNewTaskButton, createTask, displayTasks, taskButtonArray } from './task.js';
-import { task } from './index.js';
+import { displayTasks } from './task.js';
 import deleteIcon from './icons/delete.svg';
 
 class Folder extends Element{
@@ -56,7 +55,16 @@ function clearInput() {
 }
 
 function addFolder(){
-    const folder = new Folder(folderInput.getElement().value);
+    const folderName = folderInput.getElement().value;
+    const folderExists = folderArray.array.find((folder) => {
+        return folder.title === folderName;
+    });
+    if(folderExists!==undefined){
+        alert('That folder already exists. Please pick another name.');
+        return;
+    }
+
+    const folder = new Folder(folderName);
     folder.createElement(folderArray.getElement(), folder.title);
 
     const folderSpan = new Element('span');
@@ -65,7 +73,7 @@ function addFolder(){
 
     folderSpan.setEvent('click', (event) => {
         console.log(folder.getElement().id);
-        loadFolder(folder);
+        loadFolder(folder.title);
     });
 
     folder.addIcon(deleteIcon);
@@ -75,28 +83,17 @@ function addFolder(){
         deleteFolder(deleteIconElement.getElement().parentElement);
     });
 
-    createNewTaskButton(folder.getElement().id);
-
     folderArray.pushFolder(folder);
     clearInput();
 }
 
 
 function loadFolder(folder) {
-    loadHeader(folder.title);
-    const taskButton = taskButtonArray.array.find((taskButton) => {
-            return `li#${taskButton.id}` === folder.element;
-    });
-    document.querySelector('div.content>button').remove();
-    document.querySelector('div.content').insertBefore(taskButton, document.querySelector('div.content>h2'));
-    task.setEvent('click', () => {
-        createTask();
-        addTaskButton.setEvent('click', () => addTask(folder.element));
-        cancelTaskButton.setEvent('click', clearTaskInput);
-    }); 
-    displayTasks(folder.element);
+    loadHeader(folder);
+    const folderArray = displayTasks(folder);
+    console.log('folderArray:');
+    console.table(folderArray);
 }
 
 addButton.setEvent('click', addFolder);
 cancelButton.setEvent('click', clearInput);
-
