@@ -51,12 +51,13 @@ const taskTitleInput = new Element('div.taskPopup>form>input#title');
 const taskDescriptionInput = new Element('div.taskPopup>form>textarea#description');
 const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
 const taskPopup = new Element('div.taskPopup');
-const editTaskPopup = new Element('div.editTaskPopup');
 const taskPriorityInput = new Element('div.taskPopup>form>div>input[type="radio"]:checked');
 const taskArray = new TaskArray([]);
+const editTaskPopup = new Element('div.editTaskPopup');
 const editTaskTitleInput = new Element('div.editTaskPopup>form>input#editTitle');
 const editTaskDescriptionInput = new Element('div.editTaskPopup>form>textarea#editDescription');
 const editTaskDateTimeInput = new Element('div.editTaskPopup>form>input#editDateTime');
+const editTaskPriorityInput = new Element('div.editTaskPopup>form>div>input[type="radio"]');
 
 export function createTask() {
     pageCover.setAttribute('style', 'display: block;');
@@ -95,9 +96,22 @@ function addEditTask() {
     console.log('addEdit');
 }
 
-function editTask() {
+function editTask(element, task) {
     pageCover.setAttribute('style', 'display: block');
     editTaskPopup.setAttribute('style', 'display: block');
+    editTaskTitleInput.getElement().value = task.title;
+    editTaskDescriptionInput.getElement().value = task.description;
+    editTaskDateTimeInput.getElement().value = task.dateTime;
+
+    if(task.priority==='none'){
+        document.querySelector('div.editTaskPopup>form>div>input#editNone').checked = true;
+    } else if(task.priority === 'low'){
+        document.querySelector('div.editTaskPopup>form>div>input#editLow').checked = true;
+    } else if(task.priority === 'medium') {
+        document.querySelector('div.editTaskPopup>form>div>input#editMedium').checked = true;
+    } else {
+        document.querySelector('div.editTaskPopup>form>div>input#editHigh').checked = true;
+    }
 }
 
 function deleteTask(element) {
@@ -131,7 +145,7 @@ export function displayTasks(folder) {
 
         const editIconElement = new Element(`${listElement.element}>img:nth-child(2)`);
         editIconElement.setEvent('click', () => {
-            editTask();
+            editTask(editIconElement.getElement().parentElement, item);
         });
 
         const deleteIconElement = new Element(`${listElement.element}>img:last-child`);
@@ -139,7 +153,6 @@ export function displayTasks(folder) {
             deleteTask(deleteIconElement.getElement().parentElement);
         });
     });
-
 }
 
 addTaskButton.setEvent('click', addTask);
