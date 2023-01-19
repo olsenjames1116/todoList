@@ -28,7 +28,7 @@ export class Element{
     addIcon(src){
         const icon = new Image();
         icon.src = src;
-        icon.classList.add('deleteIcon');
+        icon.classList.add('icon');
         this.getElement().append(icon);
     }
 

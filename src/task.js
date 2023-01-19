@@ -1,6 +1,7 @@
 import { Element } from "./element.js";
 import { pageCover } from './folder.js';
 import deleteIcon from './icons/delete.svg';
+import editIcon from './icons/edit.svg';
 
 class Task extends Element {
     constructor(title, description, dateTime, priority, folder){
@@ -98,9 +99,17 @@ export function displayTasks(folder) {
         const textElement = document.createElement('span');
         textElement.textContent = item.title;
         listElement.getElement().append(textElement);
+        listElement.addIcon(editIcon);
         listElement.addIcon(deleteIcon);
 
-        const deleteIconElement = new Element(`${listElement.element}>img`);
+        console.log(listElement.element);
+
+        const editIconElement = new Element(`${listElement.element}>img:nth-child(2)`);
+        editIconElement.setEvent('click', () => {
+            console.log('edit');
+        });
+
+        const deleteIconElement = new Element(`${listElement.element}>img:last-child`);
         deleteIconElement.setEvent('click', () => {
             deleteTask(deleteIconElement.getElement().parentElement);
         });
