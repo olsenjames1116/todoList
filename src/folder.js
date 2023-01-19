@@ -64,6 +64,7 @@ function addFolder(){
     folderSpan.setText(folder.title);
 
     folderSpan.setEvent('click', (event) => {
+        console.log(folder.getElement().id);
         loadFolder(folder);
     });
 
