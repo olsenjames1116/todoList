@@ -43,21 +43,27 @@ class TaskArray extends Element {
     }
 }
 
-export const addTaskButton = new Element('div.taskPopup>form>button:nth-last-child(2)');
-export const cancelTaskButton = new Element('div.taskPopup>form>button:last-child');
+const addTaskButton = new Element('div.taskPopup>form>button:nth-last-child(2)');
+const cancelTaskButton = new Element('div.taskPopup>form>button:last-child');
+const addEditTaskButton = new Element('div.editTaskPopup>form>button:nth-last-child(2)');
+const cancelEditTaskButton = new Element('div.editTaskPopup>form>button:last-child');
 const taskTitleInput = new Element('div.taskPopup>form>input#title');
 const taskDescriptionInput = new Element('div.taskPopup>form>textarea#description');
 const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
 const taskPopup = new Element('div.taskPopup');
+const editTaskPopup = new Element('div.editTaskPopup');
 const taskPriorityInput = new Element('div.taskPopup>form>div>input[type="radio"]:checked');
 const taskArray = new TaskArray([]);
+const editTaskTitleInput = new Element('div.editTaskPopup>form>input#editTitle');
+const editTaskDescriptionInput = new Element('div.editTaskPopup>form>textarea#editDescription');
+const editTaskDateTimeInput = new Element('div.editTaskPopup>form>input#editDateTime');
 
 export function createTask() {
     pageCover.setAttribute('style', 'display: block;');
     taskPopup.setAttribute('style', 'display: block;');
 }
 
-export function clearTaskInput(){
+function clearTaskInput(){
     pageCover.setAttribute('style', 'display: none;');
     taskPopup.setAttribute('style', 'display: none;');
     taskTitleInput.getElement().value = '';
@@ -66,13 +72,32 @@ export function clearTaskInput(){
     document.querySelector('div.taskPopup>form>div>input#none').checked = true;
 }
 
-export function addTask() {
+function clearEditTaskInput() {
+    pageCover.setAttribute('style', 'display: none');
+    editTaskPopup.setAttribute('style', 'display: none');
+    editTaskTitleInput.getElement().value = '';
+    editTaskDescriptionInput.getElement().value = '';
+    editTaskDateTimeInput.getElement().value = '';
+    document.querySelector('div.editTaskPopup>form>div>input#editNone').checked = true;
+}
+
+
+function addTask() {
     const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
     
     taskArray.pushTask(task);
     clearTaskInput();
 
     displayTasks(task.folder);
+}
+
+function addEditTask() {
+    console.log('addEdit');
+}
+
+function editTask() {
+    pageCover.setAttribute('style', 'display: block');
+    editTaskPopup.setAttribute('style', 'display: block');
 }
 
 function deleteTask(element) {
@@ -106,7 +131,7 @@ export function displayTasks(folder) {
 
         const editIconElement = new Element(`${listElement.element}>img:nth-child(2)`);
         editIconElement.setEvent('click', () => {
-            console.log('edit');
+            editTask();
         });
 
         const deleteIconElement = new Element(`${listElement.element}>img:last-child`);
@@ -119,3 +144,6 @@ export function displayTasks(folder) {
 
 addTaskButton.setEvent('click', addTask);
 cancelTaskButton.setEvent('click', clearTaskInput);
+
+addEditTaskButton.setEvent('click', addEditTask);
+cancelEditTaskButton.setEvent('click', clearEditTaskInput);
