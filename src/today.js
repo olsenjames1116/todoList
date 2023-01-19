@@ -1,5 +1,5 @@
+import { Element } from './element.js';
 import { loadHeader } from './home.js';
-import { task } from './index.js';
 
 export function loadToday() {
     loadHeader('Today');

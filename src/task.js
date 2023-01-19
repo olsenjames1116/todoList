@@ -1,4 +1,4 @@
-import { Element } from "./home.js";
+import { Element } from "./element.js";
 import { pageCover } from './folder.js';
 import deleteIcon from './icons/delete.svg';
 

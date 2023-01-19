@@ -1,4 +1,5 @@
-import { Element, loadHome } from './home.js';
+import { Element } from './element.js';
+import { loadHome } from './home.js';
 import { loadToday } from './today.js';
 import { loadThisWeek } from './thisWeek.js';
 import { loadImportant } from './important.js';
@@ -7,7 +8,7 @@ import { createTask } from './task.js';
 import './style.css';
 import deleteIcon from './icons/delete.svg';
 
-// loadHome();
+loadHome();
 
 const home = new Element('ul.nav>li:first-child');
 home.setEvent('click', loadHome);

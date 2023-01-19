@@ -1,4 +1,5 @@
-import { Element, loadHeader, loadHome } from "./home.js";
+import { Element } from './element.js';
+import { loadHeader, loadHome } from "./home.js";
 import { displayTasks } from './task.js';
 import deleteIcon from './icons/delete.svg';
 
