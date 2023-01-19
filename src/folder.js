@@ -1,10 +1,10 @@
 import { Element, loadHeader, loadHome } from "./home.js";
-import { addTask, addTaskButton, cancelTaskButton, clearTaskInput, createTask, displayTasks } from './task.js';
+import { addTask, addTaskButton, cancelTaskButton, clearTaskInput, createNewTaskButton, createTask, displayTasks, taskButtonArray } from './task.js';
 import { task } from './index.js';
 import deleteIcon from './icons/delete.svg';
 
 class Folder extends Element{
-    constructor(title){
+    constructor(title, taskButton){
         super('li');
         this.title = title;
     }
@@ -75,6 +75,8 @@ function addFolder(){
         deleteFolder(deleteIconElement.getElement().parentElement);
     });
 
+    createNewTaskButton(folder.getElement().id);
+
     folderArray.pushFolder(folder);
     clearInput();
 }
@@ -82,6 +84,11 @@ function addFolder(){
 
 function loadFolder(folder) {
     loadHeader(folder.title);
+    const taskButton = taskButtonArray.array.find((taskButton) => {
+            return `li#${taskButton.id}` === folder.element;
+    });
+    document.querySelector('div.content>button').remove();
+    document.querySelector('div.content').insertBefore(taskButton, document.querySelector('div.content>h2'));
     task.setEvent('click', () => {
         createTask();
         addTaskButton.setEvent('click', () => addTask(folder.element));

@@ -28,6 +28,23 @@ class TaskArray {
     }
 }
 
+class TaskButton extends Element {
+    constructor(id){
+        super('button');
+        this.id = id;
+    }
+}
+
+class TaskButtonArray {
+    constructor(array){
+        this.array = array;
+    }
+
+    pushTaskButton(taskButton){
+        this.array.push(taskButton);
+    }
+}
+
 export const addTaskButton = new Element('div.taskPopup>form>button:nth-last-child(2)');
 export const cancelTaskButton = new Element('div.taskPopup>form>button:last-child');
 const taskTitleInput = new Element('div.taskPopup>form>input#title');
@@ -36,10 +53,26 @@ const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
 const taskPopup = new Element('div.taskPopup');
 const taskPriorityInput = new Element('div.taskPopup>form>div>input[type="radio"]:checked');
 const taskArray = new TaskArray([]);
+export const taskButtonArray = new TaskButtonArray([]);
 
 export function createTask() {
     pageCover.setAttribute('style', 'display: block;');
     taskPopup.setAttribute('style', 'display: block;');
+}
+
+export function createNewTaskButton(folderId) {
+    const taskButton = new TaskButton(folderId);
+    taskButton.createElement();
+    taskButton.setText('New Task');
+    taskButton.setEvent('click', () => addTask(folderId));
+    taskButtonArray.pushTaskButton(taskButton);
+}
+
+export function loadTaskButton(folderId) {
+    const taskButton = taskButtonArray.array.find((taskButton) => {
+        return taskButton.id === folderId;
+    })
+    document.querySelector('div.content').insertBefore(taskButton, document.querySelector('div.content>h2'));
 }
 
 export function loadTodo() {

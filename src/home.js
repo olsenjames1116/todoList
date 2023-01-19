@@ -1,3 +1,5 @@
+import { loadTaskButton } from './task.js';
+
 export class Element{
     constructor(element){
         this.element = element;
@@ -20,7 +22,9 @@ export class Element{
             this.element += `#${id}`;
         }
 
-        parent.append(newElement);
+        if(parent!==undefined){
+            parent.append(newElement);
+        }
     }
 
     addIcon(src){
@@ -54,4 +58,5 @@ export function loadHeader(headerText){
 
 export function loadHome(){
     loadHeader('All Tasks');
+    loadTaskButton('all');
 }
