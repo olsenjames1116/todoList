@@ -1,12 +1,5 @@
-import { Element } from './element.js';
-import { loadHome } from './home.js';
-import { loadToday } from './today.js';
-import { loadThisWeek } from './thisWeek.js';
-import { loadImportant } from './important.js';
-import { createFolder } from './folder.js';
-import { createTask } from './task.js';
+import { Element, loadHome, loadToday, loadThisWeek, loadImportant, createFolder, createTask } from './aggregator.js';
 import './style.css';
-import deleteIcon from './icons/delete.svg';
 
 loadHome();
 
