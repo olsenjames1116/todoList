@@ -26,6 +26,7 @@ export class Element{
     addIcon(src){
         const icon = new Image();
         icon.src = src;
+        icon.classList.add('deleteIcon');
         this.getElement().append(icon);
     }
 
@@ -54,6 +55,6 @@ export function loadHeader(headerText){
 
 export function loadHome(){
     loadHeader('All Tasks');
-    // const taskArray = displayTasks('all');
-    // console.table(taskArray);
+//     const taskArray = displayTasks('all');
+//     console.table(taskArray);
 }

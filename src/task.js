@@ -1,5 +1,6 @@
-import { Element, loadHeader } from "./home.js";
+import { Element } from "./home.js";
 import { pageCover } from './folder.js';
+import deleteIcon from './icons/delete.svg';
 
 class Task extends Element {
     constructor(title, description, dateTime, priority, folder){
@@ -23,8 +24,6 @@ class TaskArray {
 
     subArray(folder){
         return this.array.filter((item) => {
-            console.log(item.folder);
-            console.log(folder);
            return item.folder === folder;
         });
     }
@@ -32,6 +31,7 @@ class TaskArray {
 
 export const addTaskButton = new Element('div.taskPopup>form>button:nth-last-child(2)');
 export const cancelTaskButton = new Element('div.taskPopup>form>button:last-child');
+const taskList = new Element('div.content>ul');
 const taskTitleInput = new Element('div.taskPopup>form>input#title');
 const taskDescriptionInput = new Element('div.taskPopup>form>textarea#description');
 const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
@@ -60,15 +60,38 @@ export function addTask() {
     clearTaskInput();
 
     displayTasks(task.folder);
-    console.table(taskArray.array);
 }
 
 export function displayTasks(folder) {
+    let subArray;
+    taskList.getElement().innerHTML = '';
+
     if(folder!=='all'){
-        return taskArray.subArray(folder);
+        subArray = taskArray.subArray(folder);
     } else{
-        return taskArray.array;
+        subArray = taskArray.array;
     }
+
+    subArray.forEach((item) => {
+        const listElement = document.createElement('li');
+        const textElement = document.createElement('span');
+        textElement.textContent = item.title;
+
+        const deleteIconElement = new Image();
+        deleteIconElement.classList.add('deleteIcon');
+        deleteIconElement.src = deleteIcon;
+
+
+        // folder.addIcon(deleteIcon);
+
+        // const deleteIconElement = new Element(`>img`);
+        // deleteIconElement.setEvent('click', () => {
+        //     deleteFolder(deleteIconElement.getElement().parentElement);
+        // });
+        listElement.append(textElement, deleteIconElement);
+        taskList.getElement().append(listElement);
+    });
+
 }
 
 addTaskButton.setEvent('click', addTask);

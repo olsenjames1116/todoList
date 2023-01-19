@@ -72,7 +72,6 @@ function addFolder(){
     folderSpan.setText(folder.title);
 
     folderSpan.setEvent('click', (event) => {
-        console.log(folder.getElement().id);
         loadFolder(folder.title);
     });
 
@@ -91,7 +90,7 @@ function addFolder(){
 function loadFolder(folder) {
     loadHeader(folder);
     const folderArray = displayTasks(folder);
-    console.log('folderArray:');
+    console.log(`${folder} array:`);
     console.table(folderArray);
 }
 
