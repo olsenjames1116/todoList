@@ -64,6 +64,7 @@ function addFolder(){
     folderSpan.setText(folder.title);
 
     folderSpan.setEvent('click', (event) => {
+        console.log(event.target.parentElement.id);
         loadFolder(folder);
     });
 
@@ -79,12 +80,22 @@ function addFolder(){
 }
 
 function loadFolder(folder) {
-    loadHeader(folder.title);
-    task.setEvent('click', () => {
-        createTask();
-        addTaskButton.setEvent('click', () => addTask(folder.element));
+    loadHeader(folder);
+
+
+
+
+    // task.setEvent('click', () => {
+    //     createTask();
+    //     console.log(folder);
+        // addTaskButton.removeEventListener('click', addTask)
+        //                 .setEvent('click', () => {
+        //     console.log(folder);
+        //     addTask(folder);
+        // });
         cancelTaskButton.setEvent('click', clearTaskInput);
-    }); 
+    // }); 
+
     displayTasks(folder.element);
 }
 

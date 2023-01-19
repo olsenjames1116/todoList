@@ -35,6 +35,8 @@ const taskDescriptionInput = new Element('div.taskPopup>form>textarea#descriptio
 const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
 const taskPopup = new Element('div.taskPopup');
 const taskPriorityInput = new Element('div.taskPopup>form>div>input[type="radio"]:checked');
+// const newTask = new Element('li');
+// newTask.createElement(document.querySelector('div.content>ul'), newTask);
 const taskArray = new TaskArray([]);
 
 export function createTask() {
@@ -56,6 +58,7 @@ export function clearTaskInput(){
 }
 
 export function addTask(folder) {
+    console.log(`title: ${taskTitleInput.getElement().value}`);
     const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, folder);
     
     taskArray.pushTask(task);

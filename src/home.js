@@ -1,3 +1,5 @@
+import { displayTasks } from "./task";
+
 export class Element{
     constructor(element){
         this.element = element;
@@ -51,6 +53,8 @@ export function loadHeader(headerText){
     contentHeader.setText(headerText);
 }
 
+
 export function loadHome(){
     loadHeader('All Tasks');
+    // displayTasks('all');
 }
