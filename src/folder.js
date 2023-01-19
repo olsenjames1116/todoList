@@ -1,7 +1,8 @@
 import { Element } from './element.js';
-import { loadHeader, loadHome } from "./home.js";
+import { loadHeader, loadHome } from './home.js';
 import { displayTasks } from './task.js';
 import deleteIcon from './icons/delete.svg';
+import { task } from './index.js';
 
 class Folder extends Element{
     constructor(title, taskButton){
@@ -90,6 +91,7 @@ function addFolder(){
 
 function loadFolder(folder) {
     loadHeader(folder);
+    task.setAttribute('style', 'display: block');
     const folderArray = displayTasks(folder);
     console.log(`${folder} array:`);
     console.table(folderArray);

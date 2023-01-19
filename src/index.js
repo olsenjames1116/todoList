@@ -1,6 +1,9 @@
 import { Element, loadHome, loadToday, loadThisWeek, loadImportant, createFolder, createTask } from './aggregator.js';
 import './style.css';
 
+export const task = new Element('div.content>button:nth-child(2)');
+task.setEvent('click', createTask);
+
 loadHome();
 
 const home = new Element('ul.nav>li:first-child');
@@ -17,6 +20,3 @@ important.setEvent('click', loadImportant);
 
 const folder = new Element('div.folders>button:first-child');
 folder.setEvent('click', createFolder);
-
-export const task = new Element('div.content>button:nth-child(2)');
-task.setEvent('click', createTask);
