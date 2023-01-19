@@ -35,7 +35,7 @@
 
         <div class="pageCover"></div>
 
-        <div class="folderPopup">
+        <div class="folderPopup popup">
             <form action="" method="set">
               <h3>New Folder</h3>
           
@@ -47,7 +47,7 @@
             </form>
           </div>
 
-          <div class="taskPopup">
+          <div class="taskPopup popup">
             <form action="" method="set">
               <h3>New Task</h3>
           
@@ -80,6 +80,41 @@
               <button type="button">Cancel</button>
             </form>
           </div>
+
+          <div class="editTaskPopup popup">
+            <form action="" method="set">
+              <h3>Edit Task</h3>
+          
+              <label for="editTitle">Task Title:</label>
+              <input id="editTitle" type="text" placeholder="Ex: Pay rent, Feed the dog, etc." name="editTitle" required>
+
+              <label for="editDescription">Description:</label>
+              <textarea id="editDescription" placeholder="Ex: Dog gets a scoop of dry food and 2 vitamins" name="editDescription"></textarea>
+
+              <label for="editDateTime">Deadline:</label>
+              <input type="datetime-local" id="editDateTime" name="editDateTime">
+
+              <div>
+                <input type="radio" id="editNone" name="editPriority" value="none" checked>
+                <label for="editNone">None</label>
+              </div><div>
+                <input type="radio" id="editLow" name="editPriority" value="low">
+                <label for="editLow">Low</label>
+              </div>
+              <div>
+                <input type="radio" id="editMedium" name="priority" value="medium">
+                <label for="editMedium">Medium</label>
+              </div>
+              <div>
+                <input type="radio" id="editHigh" name="priority" value="high">
+                <label for="editHigh">High</label>
+              </div>
+          
+              <button type="button">Add</button>
+              <button type="button">Cancel</button>
+            </form>
+          </div>
+
 
         <div class="footer">
             <p>Author Credit</p>
