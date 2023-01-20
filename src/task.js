@@ -155,7 +155,6 @@ function changeTaskStatus(item, event) {
     if(event.target.checked) {
         item.complete = true;
     }
-    console.log(item.complete);
 }
 
 function displayDetails(item) {
