@@ -11,6 +11,6 @@ export function loadHeader(headerText){
 export function loadHome(){
     loadHeader('All Tasks');
     task.setAttribute('style', 'display: block');
-    const taskArray = displayTasks('all');
+    const taskArray = displayTasks('All Tasks');
     console.table(taskArray);
 }

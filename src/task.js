@@ -31,15 +31,11 @@ class TaskArray extends Element {
     }
 
     removeTask(element) {
-        console.table(this.array);
         const index = this.array.findIndex((task) => {
-            console.log(task.element);
-            console.log(element.id);
             return task.element === `li#${element.id}`;
         });
         
         this.array.splice(index, 1);
-        console.table(this.array);
     }
 }
 
@@ -57,7 +53,7 @@ const editTaskPopup = new Element('div.editTaskPopup');
 const editTaskTitleInput = new Element('div.editTaskPopup>form>input#editTitle');
 const editTaskDescriptionInput = new Element('div.editTaskPopup>form>textarea#editDescription');
 const editTaskDateTimeInput = new Element('div.editTaskPopup>form>input#editDateTime');
-const editTaskPriorityInput = new Element('div.editTaskPopup>form>div>input[type="radio"]');
+const editTaskPriorityInput = new Element('div.editTaskPopup>form>div>input[type="radio"]:checked');
 
 export function createTask() {
     pageCover.setAttribute('style', 'display: block;');
@@ -93,15 +89,25 @@ function addTask() {
 }
 
 function addEditTask() {
-    console.log('addEdit');
+    const index = taskArray.array.findIndex((task) => {
+        return task.element === `li#${editElement}`;
+    });
+
+    const editedTask = new Task(editTaskTitleInput.getElement().value, editTaskDescriptionInput.getElement().value, editTaskDateTimeInput.getElement().value, editTaskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
+    taskArray.array[index] = editedTask;
+    console.table(taskArray.array);
+    clearEditTaskInput();
+    displayTasks(editedTask.folder);
 }
 
-function editTask(element, task) {
+function editTask(task) {
     pageCover.setAttribute('style', 'display: block');
     editTaskPopup.setAttribute('style', 'display: block');
     editTaskTitleInput.getElement().value = task.title;
     editTaskDescriptionInput.getElement().value = task.description;
     editTaskDateTimeInput.getElement().value = task.dateTime;
+
+    console.log(editElement);
 
     if(task.priority==='none'){
         document.querySelector('div.editTaskPopup>form>div>input#editNone').checked = true;
@@ -124,7 +130,7 @@ export function displayTasks(folder) {
     let subArray;
     taskArray.getElement().innerHTML = '';
 
-    if(folder!=='all'){
+    if(folder!=='All Tasks'){
         subArray = taskArray.subArray(folder);
     } else{
         subArray = taskArray.array;
@@ -141,11 +147,12 @@ export function displayTasks(folder) {
         listElement.addIcon(editIcon);
         listElement.addIcon(deleteIcon);
 
-        console.log(listElement.element);
-
         const editIconElement = new Element(`${listElement.element}>img:nth-child(2)`);
         editIconElement.setEvent('click', () => {
-            editTask(editIconElement.getElement().parentElement, item);
+            console.log(editIconElement.getElement().parentElement);
+            console.table(taskArray.array);
+            editElement = editIconElement.getElement().parentElement.id;
+            editTask(item);
         });
 
         const deleteIconElement = new Element(`${listElement.element}>img:last-child`);
@@ -154,6 +161,8 @@ export function displayTasks(folder) {
         });
     });
 }
+
+let editElement;
 
 addTaskButton.setEvent('click', addTask);
 cancelTaskButton.setEvent('click', clearTaskInput);
