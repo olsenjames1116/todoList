@@ -15,16 +15,25 @@ class Task extends Element {
 }
 
 class TaskArray extends Element {
-    constructor(array){
+    constructor(array) {
         super('div.content>ul');
         this.array = array;
     }
 
-    pushTask(task){
+    pushTask(task) {
         this.array.push(task);
     }
 
-    subArray(folder){
+    subArray(folder, date) {
+        if(date==='today'){
+            return this.array.filter((item) => {
+                const itemDate = item.dateTime;
+                const itemDateString = itemDate.substring(0, 10);
+                console.log(itemDateString);
+                console.log(folder);
+                return itemDateString === folder;
+            });
+        }
         return this.array.filter((item) => {
            return item.folder === folder;
         });
@@ -123,12 +132,12 @@ function deleteTask(element) {
     taskArray.removeChild(element);
 }
 
-export function displayTasks(folder) {
+export function displayTasks(folder, date) {
     let subArray;
     taskArray.getElement().innerHTML = '';
 
     if(folder!=='All Tasks'){
-        subArray = taskArray.subArray(folder);
+        subArray = taskArray.subArray(folder, date);
     } else{
         subArray = taskArray.array;
     }
