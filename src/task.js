@@ -38,8 +38,12 @@ class TaskArray extends Element {
                 const folderYearMonth = folder.substring(0, 7);
                 const folderDay = parseInt(folder.substring(8, 10));
                 const itemDay = parseInt(itemDate.substring(8, 10));
-                return (itemYearMonth === folderYearMonth) && (itemDay - folderDay < 7) && (itemDay - folderDay > 0); 
+                return (itemYearMonth === folderYearMonth) && (itemDay - folderDay < 7) && (itemDay - folderDay >= 0); 
             });
+        } else if(folder==='high') {
+            return this.array.filter((item) => {
+                return item.priority === folder;
+            })
         }
         return this.array.filter((item) => {
            return item.folder === folder;
@@ -96,6 +100,11 @@ function clearEditTaskInput() {
 
 
 function addTask() {
+    if(taskTitleInput.getElement().value === ''){
+        alert('Please enter a title for the task.');
+        return;
+    }
+
     const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
     taskArray.pushTask(task);
     clearTaskInput();
