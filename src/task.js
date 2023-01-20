@@ -74,6 +74,8 @@ const editTaskTitleInput = new Element('div.editTaskPopup>form>input#editTitle')
 const editTaskDescriptionInput = new Element('div.editTaskPopup>form>textarea#editDescription');
 const editTaskDateTimeInput = new Element('div.editTaskPopup>form>input#editDateTime');
 const editTaskPriorityInput = new Element('div.editTaskPopup>form>div>input[type="radio"]:checked');
+const detailsPopup = new Element('div.detailsPopup');
+const closeDetailsIcon = new Element('div.detailsPopup>img:first-child');
 
 export function createTask() {
     pageCover.setAttribute('style', 'display: block;');
@@ -147,6 +149,22 @@ function deleteTask(element) {
     taskArray.removeChild(element);
 }
 
+function displayDetails(item) {
+    pageCover.setAttribute('style', 'display: block;');
+    detailsPopup.setAttribute('style', 'display: block;');
+
+    document.querySelector('div.detailsPopup>h2').textContent = item.title;
+    document.querySelector('div.detailsPopup>div.folder>span:last-child').textContent = item.folder;
+    document.querySelector('div.detailsPopup>div.priority>span:last-child').textContent = item.priority;
+    document.querySelector('div.detailsPopup>div.dueDate>span:last-child').textContent = item.dateTime;
+    document.querySelector('div.detailsPopup>div.description>p:last-child').textContent = item.description;
+}
+
+function closeDetailsPopup() {
+    pageCover.setAttribute('style', 'display: none;');
+    detailsPopup.setAttribute('style', 'display: none;');
+}
+
 export function displayTasks(folder, date) {
     let subArray;
     taskArray.getElement().innerHTML = '';
@@ -165,10 +183,17 @@ export function displayTasks(folder, date) {
         const textElement = document.createElement('span');
         textElement.textContent = item.title;
         listElement.getElement().append(textElement);
+        const detailsButton = document.createElement('button');
+        detailsButton.textContent = 'Details';
+        listElement.getElement().append(detailsButton);
+        detailsButton.addEventListener('click', () => {
+            displayDetails(item);
+        });
+
         listElement.addIcon(editIcon);
         listElement.addIcon(deleteIcon);
 
-        const editIconElement = new Element(`${listElement.element}>img:nth-child(2)`);
+        const editIconElement = new Element(`${listElement.element}>img:nth-child(3)`);
         editIconElement.setEvent('click', () => {
             editElement = editIconElement.getElement().parentElement.id;
             editTask(item);
@@ -188,3 +213,5 @@ cancelTaskButton.setEvent('click', clearTaskInput);
 
 addEditTaskButton.setEvent('click', addEditTask);
 cancelEditTaskButton.setEvent('click', clearEditTaskInput);
+
+closeDetailsIcon.setEvent('click', closeDetailsPopup);
