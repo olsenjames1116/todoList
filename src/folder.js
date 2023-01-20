@@ -67,10 +67,10 @@ function addFolder(){
     }
 
     const folder = new Folder(folderName);
-    folder.createElement(folderArray.getElement(), folder.title);
+    folder.createElement(folderArray.getElement(), folder.title.split(' ').join(''));
 
     const folderSpan = new Element('span');
-    folderSpan.createElement(folder.getElement(), folder.title);
+    folderSpan.createElement(folder.getElement(), folder.title.split(' ').join(''));
     folderSpan.setText(folder.title);
 
     folderSpan.setEvent('click', (event) => {

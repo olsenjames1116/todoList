@@ -13,6 +13,5 @@ export function loadToday() {
     }
     const day = date.getDate();
     const dateString = `${year}-${month}-${day}`;
-    console.log(dateString);
     displayTasks(dateString, 'today');
 }

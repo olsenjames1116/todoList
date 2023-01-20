@@ -29,9 +29,16 @@ class TaskArray extends Element {
             return this.array.filter((item) => {
                 const itemDate = item.dateTime;
                 const itemDateString = itemDate.substring(0, 10);
-                console.log(itemDateString);
-                console.log(folder);
                 return itemDateString === folder;
+            });
+        } else if(date==='thisWeek'){
+            return this.array.filter((item) => {
+                const itemDate = item.dateTime;
+                const itemYearMonth = itemDate.substring(0, 7);
+                const folderYearMonth = folder.substring(0, 7);
+                const folderDay = parseInt(folder.substring(8, 10));
+                const itemDay = parseInt(itemDate.substring(8, 10));
+                return (itemYearMonth === folderYearMonth) && (itemDay - folderDay < 7) && (itemDay - folderDay > 0); 
             });
         }
         return this.array.filter((item) => {
@@ -90,7 +97,6 @@ function clearEditTaskInput() {
 
 function addTask() {
     const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
-    console.log(taskDateTimeInput.getElement().value);
     taskArray.pushTask(task);
     clearTaskInput();
 
