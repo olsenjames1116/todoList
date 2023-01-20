@@ -81,7 +81,7 @@ function clearEditTaskInput() {
 
 function addTask() {
     const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
-    
+    console.log(taskDateTimeInput.getElement().value);
     taskArray.pushTask(task);
     clearTaskInput();
 
@@ -95,7 +95,6 @@ function addEditTask() {
 
     const editedTask = new Task(editTaskTitleInput.getElement().value, editTaskDescriptionInput.getElement().value, editTaskDateTimeInput.getElement().value, editTaskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
     taskArray.array[index] = editedTask;
-    console.table(taskArray.array);
     clearEditTaskInput();
     displayTasks(editedTask.folder);
 }
@@ -106,8 +105,6 @@ function editTask(task) {
     editTaskTitleInput.getElement().value = task.title;
     editTaskDescriptionInput.getElement().value = task.description;
     editTaskDateTimeInput.getElement().value = task.dateTime;
-
-    console.log(editElement);
 
     if(task.priority==='none'){
         document.querySelector('div.editTaskPopup>form>div>input#editNone').checked = true;
@@ -149,8 +146,6 @@ export function displayTasks(folder) {
 
         const editIconElement = new Element(`${listElement.element}>img:nth-child(2)`);
         editIconElement.setEvent('click', () => {
-            console.log(editIconElement.getElement().parentElement);
-            console.table(taskArray.array);
             editElement = editIconElement.getElement().parentElement.id;
             editTask(item);
         });
