@@ -2,15 +2,17 @@ import { Element } from './element.js';
 import { pageCover } from './folder.js';
 import deleteIcon from './icons/delete.svg';
 import editIcon from './icons/edit.svg';
+import { task } from './index.js';
 
 class Task extends Element {
-    constructor(title, description, dateTime, priority, folder){
+    constructor(title, description, dateTime, priority, folder, complete){
         super('li');
         this.title = title;
         this.description = description;
         this.dateTime = dateTime;
         this.priority = priority;
         this.folder = folder;
+        this.complete = complete;
     }
 }
 
@@ -107,7 +109,7 @@ function addTask() {
         return;
     }
 
-    const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
+    const task = new Task(taskTitleInput.getElement().value, taskDescriptionInput.getElement().value, taskDateTimeInput.getElement().value, taskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent, false);
     taskArray.pushTask(task);
     clearTaskInput();
 
@@ -119,7 +121,7 @@ function addEditTask() {
         return task.element === `li#${editElement}`;
     });
 
-    const editedTask = new Task(editTaskTitleInput.getElement().value, editTaskDescriptionInput.getElement().value, editTaskDateTimeInput.getElement().value, editTaskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent);
+    const editedTask = new Task(editTaskTitleInput.getElement().value, editTaskDescriptionInput.getElement().value, editTaskDateTimeInput.getElement().value, editTaskPriorityInput.getElement().value, document.querySelector('div.content>h2').textContent, taskArray.array[index].complete);
     taskArray.array[index] = editedTask;
     clearEditTaskInput();
     displayTasks(editedTask.folder);
@@ -147,6 +149,13 @@ function deleteTask(element) {
     taskArray.removeTask(element);
 
     taskArray.removeChild(element);
+}
+
+function changeTaskStatus(item, event) {
+    if(event.target.checked) {
+        item.complete = true;
+    }
+    console.log(item.complete);
 }
 
 function displayDetails(item) {
@@ -179,6 +188,20 @@ export function displayTasks(folder, date) {
         const listElement = new Element('li');
         listElement.createElement(taskArray.getElement(), item.title.split(' ').join(''));
         item.element = `li#${listElement.getElement().id}`;
+
+        const taskComplete = document.createElement('div');
+        const taskCheckbox = document.createElement('input');
+        taskCheckbox.addEventListener('change', (event) => {
+            changeTaskStatus(item, event);
+        });
+        taskCheckbox.setAttribute('type', 'checkbox');
+        taskCheckbox.id = 'complete';
+        taskCheckbox.setAttribute('name', 'complete');
+        if(item.complete===true){
+            taskCheckbox.checked = true;
+        }
+        listElement.getElement().append(taskCheckbox);
+        
         
         const textElement = document.createElement('span');
         textElement.textContent = item.title;
@@ -193,7 +216,7 @@ export function displayTasks(folder, date) {
         listElement.addIcon(editIcon);
         listElement.addIcon(deleteIcon);
 
-        const editIconElement = new Element(`${listElement.element}>img:nth-child(3)`);
+        const editIconElement = new Element(`${listElement.element}>img:nth-last-child(2)`);
         editIconElement.setEvent('click', () => {
             editElement = editIconElement.getElement().parentElement.id;
             editTask(item);
