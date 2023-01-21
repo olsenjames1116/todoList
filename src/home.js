@@ -7,7 +7,7 @@ export function loadHeader(headerText){
     contentHeader.setText(headerText);
 }
 
-
+//Display appropriate header and new task button under all tasks
 export function loadHome(){
     loadHeader('All Tasks');
     task.setAttribute('style', 'display: block');
