@@ -188,7 +188,6 @@ export function displayTasks(folder, date) {
         listElement.createElement(taskArray.getElement(), item.title.split(' ').join(''));
         item.element = `li#${listElement.getElement().id}`;
 
-        const taskComplete = document.createElement('div');
         const taskCheckbox = document.createElement('input');
         taskCheckbox.addEventListener('change', (event) => {
             changeTaskStatus(item, event);
@@ -199,6 +198,7 @@ export function displayTasks(folder, date) {
         if(item.complete===true){
             taskCheckbox.checked = true;
         }
+
         listElement.getElement().append(taskCheckbox);
         
         

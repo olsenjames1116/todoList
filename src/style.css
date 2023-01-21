@@ -1,25 +1,159 @@
 *{
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
 }
 
 body{
+    height: 100vh;
+    margin: 0;
     display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: auto 1fr auto;
 }
 
 div.header{
     grid-area: 1 / 1 / 2 / 3;
+    display: flex;
+    justify-content: center;
+    background-color: #558257;
+    color: #264E49;
+    font-size: 1.5rem;
 }
 
 div.sidebar{
     grid-area: 2 / 1 / 3 / 2;
+    background-color: #e3e566;
+    color: #558257;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
 }
 
 ul{
     list-style: none;
 }
 
+ul.nav{
+    margin-top: 50px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+ul.nav>li{
+    display: flex;
+    align-items: center;
+}
+
+div.folders{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.folders>*{
+    width: 80%;
+}
+
+div.folders>ul{
+    padding: 0;
+}
+
+div.folders>ul>li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.folders>ul>li>span{
+    font-size: 1.5rem;
+}
+
+div.folders>ul>li>img{
+    width: auto;
+    height: 20px;
+}
+
 div.content{
     grid-area: 2 / 2 / 3 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #264E49;
+    color: #A5CF61;
+}
+
+div.content>h2{
+    width: 90%;
+    font-size: 2rem;
+}
+
+button{
+    background-color: #6f9b3c;
+    color: #E3E566;
+    border: 0;
+    border-radius: 20px;
+}
+
+div.content>button{
+    width: 90%;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+div.content>ul{
+    padding: 0;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+div.content>ul>li{
+    display: flex;
+    align-items: center;
+    background-color: #A5CF61;
+    color: #558257;
+    font-size: 1.5rem;
+}
+
+div.content>ul>li>input{
+    appearance: none;
+    background-color: rgb(209, 255, 209);
+    border: 1px solid rgb(209, 255, 209);
+    padding: 10px;
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+    margin-right: 20px;
+}
+
+div.content>ul>li>input:checked{
+    background-color: rgb(209, 255, 209);
+    border: 1px solid rgb(209, 255, 209);
+    color: green;
+}
+
+div.content>ul>li>input:checked:after {
+	content: url('./icons/checkmark.png');
+    position: absolute;
+    left: -3px;
+    bottom: -7px;
+}
+
+div.content>ul>li>input:checked + span{
+    text-decoration: line-through;
+}
+
+div.content>ul>li>button{
+    margin-left: auto;
+    font-size: 1rem;
+}
+
+div.content>ul>li>img{
+    margin-left: 20px;
 }
 
 img.icon{
@@ -38,11 +172,42 @@ div.pageCover {
     left:0;
 }
 
+div.folderPopup{
+    padding: 5px;
+    flex-direction: column;
+}
+
+div.folderPopup>h3{
+    display: flex;
+    justify-content: center;
+}
+
+div.folderPopup>form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+div.folderPopup>form>input{
+    background-color: rgb(229, 225, 225);
+}
+
+div.folderPopup>form>button{
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
+
+div.folderPopup>form>button:last-child{
+    background-color: red;
+}
+
 .popup{
-    background-color: white;
+    background-color: #e3e566;
+    color: #558257;
+    border: 0;
     display: none;
     position: fixed;
-    border: 3px solid #f1f1f1;
     z-index: 100;
     top: 50%;
     left: 50%;
@@ -50,10 +215,69 @@ div.pageCover {
     width: 50%;
 }
 
+div.taskPopup, div.editTaskPopup{
+    padding: 5px;
+}
+
+div.taskPopup>h3, div.editTaskPopup>h3{
+    display: flex;
+    justify-content: center;
+}
+
+div.taskPopup>form, div.editTaskPopup>form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+div.taskPopup>form>div:nth-child(n+4), div.editTaskPopup>form>div:nth-child(n+4) {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+div.taskPopup>form>button, div.editTaskPopup>form>button{
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
+
+div.taskPopup>form>button:last-child, div.editTaskPopup>form>button:last-child{
+    background-color: red;
+}
+
+textarea{
+    resize: none;
+}
+
 div.footer{
     grid-area: 3 / 1 / 4 / 3;
+    background-color: #558257;
+    color: #264E49;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.detailsPopup{
+    padding: 5px;
+    height: max-content;
+}
+
+div.detailsPopup>img{
+    float: right;
+}
+
+div.description>p{
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
+div.footer>p{
+    margin: 0;
 }
 
 a{
     text-decoration: none;
+    color: white;
 }

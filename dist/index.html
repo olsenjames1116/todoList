@@ -9,15 +9,28 @@
     </head>
     <body>
         <div class="header">
+            <img src="./images/logo.png" alt="a green calendar with a checkmark">
             <h1>Task Manager</h1>
         </div>
         
         <div class="sidebar">
             <ul class="nav">
-                <li>All Tasks</li>
-                <li>Today</li>
-                <li>This Week</li>
-                <li>Important</li>
+                <li>
+                  <img src="./images/allTasks.png" alt="a house">
+                  <span>All Tasks</span>
+                </li>
+                <li>
+                  <img src="./images/today.png" alt="a calendar with a single day marked">
+                  <span>Today</span>
+                </li>
+                <li>
+                  <img src="./images/thisWeek.png" alt="a calendar with an arrow">
+                  <span>This Week</span>
+                </li>
+                <li>
+                  <img src="./images/important.png" alt="an exclamation point in a bubble">
+                  <span>Important</span>
+                </li>
             </ul>
             <div class="folders">
                 <button type="button">New Folder</button>
@@ -36,23 +49,23 @@
         <div class="pageCover"></div>
 
         <div class="folderPopup popup">
-            <form action="" method="set">
-              <h3>New Folder</h3>
-          
-              <label for="title">Folder Name:</label>
-              <input id="title" type="text" placeholder="Ex: Bills, Chores, etc." name="title" required>
-          
-              <button type="button">Add</button>
-              <button type="button">Cancel</button>
-            </form>
-          </div>
+          <h3>New Folder</h3>
+
+          <form action="" method="set">
+            <label for="title">Folder Name:</label>
+            <input id="title" type="text" placeholder="Ex: Bills, Chores, etc." name="title" maxlength="16">
+        
+            <button type="button">Add</button>
+            <button type="button">Cancel</button>
+          </form>
+        </div>
 
           <div class="taskPopup popup">
-            <form action="" method="set">
-              <h3>New Task</h3>
+            <h3>New Task</h3>
           
+            <form action="" method="set">
               <label for="title">Task Title:</label>
-              <input id="title" type="text" placeholder="Ex: Pay rent, Feed the dog, etc." name="title" required>
+              <input id="title" type="text" placeholder="Ex: Pay rent, Feed the dog, etc." name="title" maxlength="50">
 
               <label for="description">Description:</label>
               <textarea id="description" placeholder="Ex: Dog gets a scoop of dry food and 2 vitamins" name="description"></textarea>
@@ -63,7 +76,8 @@
               <div>
                 <input type="radio" id="none" name="priority" value="none" checked>
                 <label for="none">None</label>
-              </div><div>
+              </div>
+              <div>
                 <input type="radio" id="low" name="priority" value="low">
                 <label for="low">Low</label>
               </div>
@@ -82,11 +96,10 @@
           </div>
 
           <div class="editTaskPopup popup">
+            <h3>Edit Task</h3>
             <form action="" method="set">
-              <h3>Edit Task</h3>
-          
               <label for="editTitle">Task Title:</label>
-              <input id="editTitle" type="text" placeholder="Ex: Pay rent, Feed the dog, etc." name="editTitle" required>
+              <input id="editTitle" type="text" placeholder="Ex: Pay rent, Feed the dog, etc." name="editTitle" maxlength="50">
 
               <label for="editDescription">Description:</label>
               <textarea id="editDescription" placeholder="Ex: Dog gets a scoop of dry food and 2 vitamins" name="editDescription"></textarea>

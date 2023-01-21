@@ -65,6 +65,10 @@ function addFolder(){
         alert('That folder already exists. Please pick another name.');
         return;
     }
+    if(folderName===''){
+        alert('Please enter a title for the folder');
+        return
+    }
 
     const folder = new Folder(folderName);
     folder.createElement(folderArray.getElement(), folder.title.split(' ').join(''));
