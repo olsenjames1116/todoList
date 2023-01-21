@@ -4,6 +4,8 @@ import deleteIcon from './icons/delete.svg';
 import editIcon from './icons/edit.svg';
 import { task } from './index.js';
 
+// localStorage.clear();
+
 class Task extends Element {
     constructor(title, description, dateTime, priority, folder, complete){
         super('li');
