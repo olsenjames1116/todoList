@@ -134,7 +134,7 @@ function addFolder(){
 function loadFolder(folder) {
     loadHeader(folder);
     task.setAttribute('style', 'display: block');
-    const folderArray = displayTasks(folder);
+    displayTasks(folder);
 }
 
 addButton.setEvent('click', addFolder);

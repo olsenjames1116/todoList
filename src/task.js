@@ -2,9 +2,7 @@ import { Element } from './element.js';
 import { pageCover } from './folder.js';
 import deleteIcon from './icons/delete.svg';
 import editIcon from './icons/edit.svg';
-import { task } from './index.js';
-
-// localStorage.clear();
+import storageAvailable from './storage.js';
 
 class Task extends Element {
     constructor(title, description, dateTime, priority, folder, complete){
@@ -72,7 +70,6 @@ const taskDescriptionInput = new Element('div.taskPopup>form>textarea#descriptio
 const taskDateTimeInput = new Element('div.taskPopup>form>input#dateTime');
 const taskPopup = new Element('div.taskPopup');
 const taskPriorityInput = new Element('div.taskPopup>form>div>input[type="radio"]:checked');
-const taskArray = new TaskArray([]);
 const editTaskPopup = new Element('div.editTaskPopup');
 const editTaskTitleInput = new Element('div.editTaskPopup>form>input#editTitle');
 const editTaskDescriptionInput = new Element('div.editTaskPopup>form>textarea#editDescription');
@@ -80,6 +77,18 @@ const editTaskDateTimeInput = new Element('div.editTaskPopup>form>input#editDate
 const editTaskPriorityInput = new Element('div.editTaskPopup>form>div>input[type="radio"]:checked');
 const detailsPopup = new Element('div.detailsPopup');
 const closeDetailsIcon = new Element('div.detailsPopup>img:first-child');
+let taskArray;
+
+if(storageAvailable('localStorage')){
+    if(localStorage.getItem("taskArray") !== null){
+        taskArray = new TaskArray(JSON.parse(localStorage.getItem("taskArray")));
+    } else{
+        taskArray = new TaskArray([]);
+    }
+
+} else{
+    taskArray = new TaskArray([]);
+}
 
 export function createTask() {
     pageCover.setAttribute('style', 'display: block;');
@@ -116,6 +125,10 @@ function addTask() {
     clearTaskInput();
 
     displayTasks(task.folder);
+
+    if(storageAvailable('localStorage')){
+        storeTaskArray(); 
+    }
 }
 
 function addEditTask() {
@@ -127,6 +140,10 @@ function addEditTask() {
     taskArray.array[index] = editedTask;
     clearEditTaskInput();
     displayTasks(editedTask.folder);
+
+    if(storageAvailable('localStorage')){
+        storeTaskArray(); 
+    }
 }
 
 function editTask(task) {
@@ -147,10 +164,20 @@ function editTask(task) {
     }
 }
 
+function storeTaskArray() {
+    const taskArraySerialized = JSON.stringify(taskArray.array);
+    localStorage.setItem("taskArray", taskArraySerialized);
+
+}
+
 function deleteTask(element) {
     taskArray.removeTask(element);
 
     taskArray.removeChild(element);
+
+    if(storageAvailable('localStorage')){
+        storeTaskArray();
+    }
 }
 
 function changeTaskStatus(item, event) {
@@ -158,6 +185,10 @@ function changeTaskStatus(item, event) {
         item.complete = true;
     } else {
         item.complete = false;
+    }
+
+    if(storageAvailable('localStorage')){
+        storeTaskArray(); 
     }
 }
 
