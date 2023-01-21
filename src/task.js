@@ -154,6 +154,8 @@ function deleteTask(element) {
 function changeTaskStatus(item, event) {
     if(event.target.checked) {
         item.complete = true;
+    } else {
+        item.complete = false;
     }
 }
 
