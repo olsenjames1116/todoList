@@ -34,7 +34,7 @@ const folderArray = new FolderArray([]);
 export const pageCover = new Element('div.pageCover');
 const folderInput = new Element('div.folderPopup>form>input');
 const folderPopup = new Element('div.folderPopup');
-const addButton = new Element('div.folderPopup>form>button:nth-child(4)');
+const addButton = new Element('div.folderPopup>form>button:nth-last-child(2)');
 const cancelButton = new Element('div.folderPopup>form>button:last-child');
 
 export function createFolder() {
