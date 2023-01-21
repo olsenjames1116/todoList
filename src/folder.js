@@ -3,6 +3,7 @@ import { loadHeader, loadHome } from './home.js';
 import { displayTasks } from './task.js';
 import deleteIcon from './icons/delete.svg';
 import { task } from './index.js';
+import folderIcon from './icons/folder.png';
 
 class Folder extends Element{
     constructor(title, taskButton){
@@ -73,6 +74,8 @@ function addFolder(){
     const folder = new Folder(folderName);
     folder.createElement(folderArray.getElement(), folder.title.split(' ').join(''));
 
+    folder.addIcon(folderIcon);
+    
     const folderSpan = new Element('span');
     folderSpan.createElement(folder.getElement(), folder.title.split(' ').join(''));
     folderSpan.setText(folder.title);
@@ -83,7 +86,7 @@ function addFolder(){
 
     folder.addIcon(deleteIcon);
 
-    const deleteIconElement = new Element(`${folder.element}>img`);
+    const deleteIconElement = new Element(`${folder.element}>img:last-child`);
     deleteIconElement.setEvent('click', () => {
         deleteFolder(deleteIconElement.getElement().parentElement);
     });
